@@ -1,25 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+export class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      counter: 0,
+      backgroundColor: "white",
+    };
+  }
+  handleIncrementButton() {
+    this.setState({ counter: this.state.counter + 1 });
+  }
+  handleDecrementButton() {
+    if (this.state.counter === 0) {
+      return this.state.counter;
+    } else {
+      return this.setState({ counter: this.state.counter - 1 });
+    }
+  }
+  handleChangeBackgroundColor(event) {
+    const newBackgroundColor = event.target.value;
+    this.setState({ backgroundColor: newBackgroundColor });
+  }
+  render() {
+    return (
+      <div
+        className="App"
+        style={{ backgroundColor: this.state.backgroundColor }}
+      >
+        <button
+          type="button"
+          className="decrement"
+          onClick={() => this.handleDecrementButton()}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+          Decrement (-)
+        </button>
+        <h1>{this.state.counter}</h1>
+        <button
+          type="button"
+          className="increment"
+          onClick={() => this.handleIncrementButton()}
+        >
+          Increment (+)
+        </button>
+        <input
+          type="color"
+          onChange={(event) => this.handleChangeBackgroundColor(event)}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
